@@ -1,0 +1,1 @@
+{"name":"Local: a","url":"c:\\.........Node.js\\Express.js\\a.cpp","tests":[{"id":1750596504668,"input":"73_87-73-76-76_68-69-70-73-78-73-84-69-76-89_66-69_66-65-67-75-","output":""},{"id":1750596875732,"input":"73_87.73.76.76_","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\.........Node.js\\Express.js\\a.cpp","group":"local","local":true}
