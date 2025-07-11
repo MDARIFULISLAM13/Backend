@@ -1,6 +1,7 @@
 
 let express = require( "express" );
 const { dbconnection } = require( "./dbConnection" );
+const { ObjectId } = require( "mongodb" );
 
 
 let app = express();
@@ -24,7 +25,7 @@ app.get( "/student-read", async ( req, res ) =>
 } )
 
 
-//data insert in bd
+//data insert in db
 app.post( "/student-insert", async ( req, res ) =>
 {
     let myDB = await dbconnection();
@@ -50,6 +51,44 @@ app.post( "/student-insert", async ( req, res ) =>
 
     res.send( resobj );
 } );
+
+
+//data delete from db
+app.delete( "/student-delete/:id",async ( req, res ) =>
+{
+    let { id } = req.params;
+    let myDB = await dbconnection();
+    let studentCollection = myDB.collection( "ALL_Students" )
+    let delres = await studentCollection.deleteOne( { _id: new ObjectId( id ) } )
+    let resobj = {
+        statusbar: 1,
+        msg: "Data delete\n",
+        delres
+    };
+
+    res.send( resobj );
+
+} )
+
+//update data from db
+app.put( "/student-update/:id",async ( req, res ) =>
+{
+    let { id } = req.params;
+    let { sname, semail } = req.body;
+    let obj = { sname, semail };
+    let myDB = await dbconnection();
+    let studentCollection = myDB.collection( "ALL_Students" )
+    let updateres=await studentCollection.updateOne({_id:new ObjectId(id)},{$set:{sname,semail}})
+    let resobj = {
+        statusbar: 1,
+        msg: "data update\n",
+        updateres
+    };
+
+    res.send( resobj );
+
+
+})
 
 
 app.listen( "8000" );
