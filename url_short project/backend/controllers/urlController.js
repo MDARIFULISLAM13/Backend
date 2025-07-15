@@ -34,7 +34,7 @@ let input_new_url = async ( req, res ) =>
         const input_data = new input_model( userdata );
         await input_data.save();
 
-        const shortUrl = `https://arif.com/${userdata.given_name}`;
+        const shortUrl = ` https://new-url.onrender.com/${userdata.given_name}`;
 
         res.json( {
             status: 1,

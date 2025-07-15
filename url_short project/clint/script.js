@@ -11,7 +11,10 @@ async function shortenUrl()
 
     try
     {
-        const response = await fetch( "http://localhost:8000/api/web/user_url", {
+        // const response = await fetch( "http://localhost:8000/api/web/user_url", {
+        const response = await fetch( " https://new-url.onrender.com/api/web/user_url", {
+
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
