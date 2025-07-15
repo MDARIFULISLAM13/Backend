@@ -38,7 +38,7 @@ let input_new_url = async ( req, res ) =>
 
         res.json( {
             status: 1,
-            message: "✅ URL shortened successfully!",
+            message: "✅ URL shortened successfully! ",
             shortUrl: shortUrl,
         } );
     } catch ( err )
