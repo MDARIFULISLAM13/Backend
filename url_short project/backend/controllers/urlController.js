@@ -28,17 +28,15 @@ let input_new_url = async ( req, res ) =>
 
         const userdata = {
             given_url: user_url,
-            given_name: user_name ,
+            given_name: user_name,
         };
 
         const input_data = new input_model( userdata );
         await input_data.save();
-
-        const shortUrl = ` https://new-url.onrender.com/${userdata.given_name}`;
-
+        const shortUrl = `https://arif.com/${userdata.given_name}`;
         res.json( {
             status: 1,
-            message: "✅ URL shortened successfully! ",
+            message: "✅ URL shortened successfully!",
             shortUrl: shortUrl,
         } );
     } catch ( err )
