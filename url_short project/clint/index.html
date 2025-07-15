@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔗 Short URL</h1>
+
+        <input type="text" id="longUrl" placeholder="Enter long URL" />
+        <input type="text" id="customPath" placeholder="Enter custom short name (optional)" />
+        <button onclick="shortenUrl()">Shorten URL</button>
+
+        <div id="result" class="hidden">
+            <p>✅ Your shortened URL:</p>
+            <a id="shortUrl" href="#" target="_blank"></a>
+            <br />
+            <button onclick="copyUrl()">Copy URL</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
