@@ -3,13 +3,10 @@
   "version": "1.0.0",
   "type": "common.js",
   "main": "index.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index"
-
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MDARIFULISLAM13/Node-js.git"
@@ -20,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/MDARIFULISLAM13/Node-js/issues"
   },
-  "homepage": "https://github.com/MDARIFULISLAM13/Node-js#readme"
+  "homepage": "https://github.com/MDARIFULISLAM13/Node-js#readme",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.4"
+  }
 }

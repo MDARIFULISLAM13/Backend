@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up with Email OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        #otpSection {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Sign Up</h2>
+
+    <!-- Sign Up Form -->
+    <form id="signupForm">
+        <input type="text" id="username" placeholder="Username" required /><br />
+        <input type="email" id="email" placeholder="Email" required /><br />
+        <input type="password" id="password" placeholder="Password" required /><br />
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <!-- OTP Verification Section -->
+    <div id="otpSection">
+        <h3>Enter OTP sent to your email</h3>
+        <input type="text" id="otpInput" placeholder="OTP" maxlength="6" /><br />
+        <button id="verifyOtpBtn">Verify OTP</button>
+    </div>
+
+    <p>Already have an account? <a href="index.html">Login</a></p>
+
+    <script>
+        const backendURL = "http://localhost:5000/api/auth";
+        let currentUserId = null;
+
+        const signupForm = document.getElementById( "signupForm" );
+        const otpSection = document.getElementById( "otpSection" );
+        const verifyOtpBtn = document.getElementById( "verifyOtpBtn" );
+
+        signupForm.addEventListener( "submit", async ( e ) =>
+        {
+            e.preventDefault();
+
+            const username = document.getElementById( "username" ).value.trim();
+            const email = document.getElementById( "email" ).value.trim();
+            const password = document.getElementById( "password" ).value;
+
+            if ( !username || !email || !password )
+            {
+                alert( "Please fill all fields" );
+                return;
+            }
+
+            try
+            {
+                const res = await fetch( `${backendURL}/signup`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify( { username, email, password } ),
+                } );
+
+                const data = await res.json();
+
+                if ( res.ok )
+                {
+                    currentUserId = data.userId;
+                    alert( "OTP sent to your email. Please check." );
+                    signupForm.style.display = "none";
+                    otpSection.style.display = "block";
+                } else
+                {
+                    alert( data.message || "Signup failed" );
+                }
+            } catch ( err )
+            {
+                alert( "Error during signup" );
+                console.error( err );
+            }
+        } );
+
+        verifyOtpBtn.addEventListener( "click", async () =>
+        {
+            const otp = document.getElementById( "otpInput" ).value.trim();
+
+            if ( !otp || otp.length !== 6 )
+            {
+                alert( "Please enter a valid 6-digit OTP" );
+                return;
+            }
+
+            try
+            {
+                const res = await fetch( `${backendURL}/verify-otp`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify( { userId: currentUserId, otp } ),
+                } );
+
+                const data = await res.json();
+
+                if ( res.ok )
+                {
+                    alert( "Email verified! You can now login." );
+                    window.location.href = "index.html";
+                } else
+                {
+                    alert( data.message || "Invalid OTP" );
+                }
+            } catch ( err )
+            {
+                alert( "Error verifying OTP" );
+                console.error( err );
+            }
+        } );
+    </script>
+</body>
+
+</html>
