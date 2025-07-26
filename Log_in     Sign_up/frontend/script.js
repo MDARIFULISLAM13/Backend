@@ -29,11 +29,16 @@ document.addEventListener( "DOMContentLoaded", () =>
                 {
                     // Token store and redirect
                     localStorage.setItem( "token", data.token );
-                    window.location.href = "dashboard.html";
+
+                    const username = document.getElementById( "username" ).value;
+                    window.location.href = `dashboard.html?user=${encodeURIComponent( username )}`;
                 } else
                 {
                     alert( data.message || "Login failed" );
                 }
+
+
+
             } catch ( err )
             {
                 console.error( "Login Error:", err );
